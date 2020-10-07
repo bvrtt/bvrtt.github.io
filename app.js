@@ -44,43 +44,40 @@ const burger = document.querySelector(".burger");
 const burgerLines = document.querySelectorAll(".burger-line");
 const navList = document.querySelector(".nav-list");
 const navItems = document.querySelectorAll(".nav-item");
-const screenWidth = window.innerWidth;
 
-if (screenWidth < 766) {
-  burger.addEventListener("click", () => {
+burger.addEventListener("click", () => {
+  //Burger animations
+  burgerLines[0].classList.toggle("line1-animation");
+  burgerLines[1].classList.toggle("line2-animation");
+  burgerLines[2].classList.toggle("line3-animation");
+
+  //Navbar animation
+  navList.classList.toggle("nav-animation");
+
+  //Nav items animtaions
+  navItems.forEach((item, index) => {
+    item.classList.toggle("nav-item-animation");
+    item.style.transitionDuration = `${0.3 * (index + 1)}s`;
+  });
+});
+
+//Close navbar when item clicked
+navItems.forEach((item) => {
+  item.addEventListener("click", () => {
     //Burger animations
-    burgerLines[0].classList.toggle("line1-animation");
-    burgerLines[1].classList.toggle("line2-animation");
-    burgerLines[2].classList.toggle("line3-animation");
+    burgerLines[0].classList.remove("line1-animation");
+    burgerLines[1].classList.remove("line2-animation");
+    burgerLines[2].classList.remove("line3-animation");
 
-    //Navbar animation
-    navList.classList.toggle("nav-animation");
+    //Hide navbar
+    navList.classList.remove("nav-animation");
 
-    //Nav items animtaions
-    navItems.forEach((item, index) => {
-      item.classList.toggle("nav-item-animation");
-      item.style.transitionDuration = `${0.3 * (index + 1)}s`;
+    //Nav items animations
+    navItems.forEach((item) => {
+      item.classList.remove("nav-item-animation");
     });
   });
-
-  //Close navbar when item clicked
-  navItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      //Burger animations
-      burgerLines[0].classList.remove("line1-animation");
-      burgerLines[1].classList.remove("line2-animation");
-      burgerLines[2].classList.remove("line3-animation");
-
-      //Hide navbar
-      navList.classList.remove("nav-animation");
-
-      //Nav items animations
-      navItems.forEach((item) => {
-        item.classList.remove("nav-item-animation");
-      });
-    });
-  });
-}
+});
 
 //GSAP Animations
 //Loader animations
